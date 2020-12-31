@@ -166,11 +166,14 @@ create procedure pku_company.admin_delete_salary(_salary_id INT)
 
 -- 审核请假记录
 create procedure pku_company.admin_verify_leaving(
+	_admin_id INT,
 	_leave_id INT,
 	_status ENUM('Approved', 'Rejected'))
-    call pku_company.admin_alter_leaving(_leave_id, null, null, null, null, null, substring_index(user(), '@', 1), _status);
+    call pku_company.admin_alter_leaving(_leave_id, null, null, null, null, null, _admin_id, _status);
 
 -- 审核工资记录
-create procedure pku_company.admin_verify_salary(_salary_id INT)
-    call pku_company.admin_alter_salary(_salary_id, null, null, null, null, null, null, substring_index(user(), '@', 1))
+create procedure pku_company.admin_verify_salary(
+	_admin_id INT,
+    _salary_id INT)
+    call pku_company.admin_alter_salary(_salary_id, null, null, null, null, null, null, _admin_id)
 
